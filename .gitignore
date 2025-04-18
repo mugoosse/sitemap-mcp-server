@@ -1,0 +1,6 @@
+.env
+venv
+.venv
+__pycache__
+sitemap_server.log
+sitemap_mcp_server.egg-info
