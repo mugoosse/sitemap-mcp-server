@@ -1,144 +1,72 @@
-<h1 align="center">Sitemap MCP Server</h1>
+# Sitemap MCP Server
 
-<p align="center">A powerful Model Context Protocol (MCP) server for sitemap analysis and visualization</p>
+<p>Model Context Protocol (MCP) Server for sitemap analysis and visualization</p>
 
-## Overview
+![License](https://img.shields.io/github/license/mugoosse/sitemap-mcp-server)
+![PyPI](https://img.shields.io/pypi/v/sitemap-mcp-server)
+![Python Version](https://img.shields.io/badge/python-3.11+-blue)
+![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
 
 The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
 
-## MCP Server primitives
-
-### Tools
-
-| Tool | Description |
-|------|-------------|
-| `get_sitemap_tree` | Fetch and parse the complete sitemap hierarchy |
-| `get_sitemap_pages` | Extract all pages with filtering options (by route or specific subsitemap) |
-| `get_sitemap_stats` | Generate comprehensive sitemap statistics with per-subsitemap details |
-| `parse_sitemap_content` | Parse sitemap directly from content |
-
-### Prompts
-
-The server includes ready-to-use prompts for common sitemap tasks:
-
-| Prompt | Purpose |
-|--------|--------|
-| `analyze_sitemap` | Comprehensive structure analysis |
-| `sitemap_health_check` | SEO and health assessment |
-| `extract_sitemap_urls` | Extract and filter specific URLs |
-| `sitemap_missing_analysis` | Identify content gaps |
-| `visualize_sitemap` | Create Mermaid.js diagram visualizations of sitemap structure |
-
 ## Installation
 
-### Prerequisites
+Make sure [uv](https://docs.astral.sh/uv/getting-started/installation/) is installed.
 
-- Python 3.12+ (for non-Docker installation)
-- Docker (optional, but recommended for simplest setup)
+### Claude Desktop & Cursor
 
-### Quick Start (TL;DR)
+Add this entry to your [claude_desktop_config.json](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server), Cursor settings, etc.:
 
-1. **Install the server**: Use Docker (recommended) or Python
-2. **Configure your client**: Add the MCP server to your AI assistant
-3. **Start using**: Access sitemap tools and resources through your AI assistant
-
-### Server Installation
-
-Choose **one** of the following options to install and run the Sitemap MCP Server:
-
-#### Option 1: Using Docker
-
-The simplest way to get started with minimal configuration:
-
-```bash
-# Build the Docker image (required before any Docker-based connections)
-docker build -t mcp/sitemap --build-arg PORT=8050 .
+```json
+{
+  "mcpServers": {
+    "sitemap": {
+      "command": "uvx",
+      "args": ["sitemap-mcp-server"],
+      "env": { "TRANSPORT": "stdio" }
+    }
+  }
+}
 ```
 
+Restart Claude if it's running. For Cursor simply press refresh and/or enable the MCP Server in the settings.
 
+### MCP Inspector
 
-#### Option 2: Using uv
-
-For faster dependency resolution with uv:
-
-```bash
-# Clone the repository
-git clone https://github.com/mugoosse/sitemap-mcp-server.git
-cd sitemap-mcp-server
-
-# Install uv if you don't have it already
-curl -LSfs https://astral.sh/uv/install.sh | sh
-
-# Create a virtual environment and install dependencies in one step
-uv sync
-
-# Set up configuration
-cp .env.example .env
-```
-
-### Build the Docker Image
-
-If you plan to use Docker for connecting to the MCP server, you need to build the image first:
-
-> **Prerequisite**: Make sure Docker is installed and running on your system.
+<details><summary>uv + stdio transport</summary>
 
 ```bash
-docker build -t mcp/sitemap --build-arg PORT=8050 .
+npx @modelcontextprotocol/inspector env TRANSPORT=stdio uvx sitemap-mcp-server
 ```
 
-### Client Configuration
+Open the MCP Inspector at http://127.0.0.1:6274, select `stdio` transport, and connect to the MCP server.
 
-Choose the appropriate configuration based on your AI assistant client:
+</details>
 
-#### Option 1: Claude Desktop
+<details><summary>uv + sse transport</summary>
 
-1. Locate your Claude configuration file:
-   - On Mac: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
-   - On Windows: `%APPDATA%\Claude\claude_desktop_config.json`
-   - On Linux: `~/.config/Claude/claude_desktop_config.json`
+```bash
+# Start the server
+uvx sitemap-mcp-server
 
-2. Add one of these configurations to your `claude_desktop_config.json`:
+# Start the MCP Inspector in a separate terminal
+npx @modelcontextprotocol/inspector connect http://127.0.0.1:8050
+```
 
-   **Option A: Using Docker (recommended)**
-   ```json
-   {
-     "mcpServers": {
-       "sitemap": {
-         "command": "docker",
-         "args": ["run", "-i", "--rm", "--name", "sitemap-mcp-server", "-e", "TRANSPORT=stdio", "mcp/sitemap"],
-         "env": { "TRANSPORT": "stdio" }
-       }
-     }
-   }
-   ```
-   > **Important**: Make sure Docker is installed and running on your system for this configuration to work.
+Open the MCP Inspector at http://127.0.0.1:6274, select `sse` transport, and connect to the MCP server.
 
-   **Option B: Using uv**
-   ```json
-   {
-     "mcpServers": {
-       "sitemap": {
-         "command": "uv",
-         "args": [
-           "run",
-           "--with",
-           "mcp[cli]",
-           "mcp",
-           "run",
-           "/path/to/sitemap-mcp-server/src/main.py"
-         ]
-       }
-     }
-   }
-   ```
-   > **Note**: Update the path to match your local installation
+</details>
 
-3. Restart Claude if it's running
+### SSE Transport
 
-#### Option 2: Cursor
+If you want to use the SSE transport, follow these steps:
 
-Add this configuration to your Cursor settings:
+1. Start the server:
+```bash
+uvx sitemap-mcp-server
+```
 
+2. Configure your MCP Client, e.g. Cursor:
 ```json
 {
   "mcpServers": {
@@ -150,49 +78,51 @@ Add this configuration to your Cursor settings:
 }
 ```
 
-> **Important**: For SSE connections, you must first start the server separately with one of these commands:
-> 
-> **Using Docker:**
-> ```bash
-> docker run -i --rm --name sitemap-mcp-server -p 8050:8050 mcp/sitemap
-> ```
-> 
-> **Using Python or uv:**
-> ```bash
-> # From the project directory
-> python src/main.py
-> # or
-> uv run src/main.py
-> ```
+### Local Development
 
-#### Option 3: Other MCP Clients
+For instructions on building and running the project from source, please refer to the [DEVELOPERS.md](DEVELOPERS.md) guide.
 
-For other MCP clients, use a permutation of the configurations covered above:
+## Usage
 
-- For SSE connections: Use the same approach as the Cursor configuration, adjusting the URL format if needed (some clients require `serverUrl` instead of `url`)
-- For stdio connections: Use either the Docker or uv approach from the Claude Desktop configuration
+### Tools
 
-Remember that SSE connections require starting the server separately as described in the Cursor section.
+The following tools are available via the MCP server:
 
-### Configuration Options
+* **get_sitemap_tree** - Fetch and parse the sitemap tree from a website URL
+  * Arguments: `url` (website URL), `include_pages` (optional, boolean)
+  * Returns: JSON representation of the sitemap tree structure
 
-Customize your server by setting these environment variables:
+* **get_sitemap_pages** - Get all pages from a website's sitemap with filtering options
+  * Arguments: `url` (website URL), `limit` (optional), `include_metadata` (optional), `route` (optional), `sitemap_url` (optional), `cursor` (optional)
+  * Returns: JSON list of pages with pagination metadata
 
-| Variable | Purpose | Default | Notes |
-|----------|---------|--------|--------|
-| `TRANSPORT` | Connection method (`sse` or `stdio`) | `sse` | **Critical**: This determines how the server communicates. Set to `stdio` for direct stdio connections, or `sse` for Server-Sent Events. For Docker stdio connections, this is set via the `-e "TRANSPORT=stdio"` parameter in our examples. |
-| `HOST` | Server address for SSE mode | `0.0.0.0` | Only used when `TRANSPORT=sse` |
-| `PORT` | Server port for SSE mode | `8050` | Only used when `TRANSPORT=sse` |
-| `CACHE_MAX_AGE` | Sitemap cache duration (seconds) | `86400` (1 day) | |
-| `LOG_LEVEL` | Log level (INFO, DEBUG, etc.) | `INFO` | |
-| `LOG_FILE` | Log file name | `sitemap_server.log` | |
+* **get_sitemap_stats** - Get statistics about a website's sitemap
+  * Arguments: `url` (website URL)
+  * Returns: JSON object with sitemap statistics including page counts, modification dates, and subsitemap details
 
-> **Important**: The `TRANSPORT` environment variable controls whether the server runs in SSE or stdio mode. Our Docker and uv configurations for Claude Desktop already set this correctly. If you're using a custom configuration, make sure to set this appropriately.
+* **parse_sitemap_content** - Parse a sitemap directly from its XML or text content
+  * Arguments: `content` (sitemap XML content), `include_pages` (optional, boolean)
+  * Returns: JSON representation of the parsed sitemap
 
+### Prompts
 
-## Tool Usage Examples
+The server includes ready-to-use prompts that appear as templates in Claude Desktop. After installing the server, you'll see these templates in the "Templates" menu (click the + icon next to the message input):
 
-### Fetch a Complete Sitemap
+* **Analyze Sitemap**: Provides comprehensive structure analysis of a website's sitemap
+* **Check Sitemap Health**: Evaluates SEO and health metrics of a sitemap
+* **Extract URLs from Sitemap**: Extracts and filters specific URLs from a sitemap
+* **Find Missing Content in Sitemap**: Identifies content gaps in a website's sitemap
+* **Visualize Sitemap Structure**: Creates a Mermaid.js diagram visualization of sitemap structure
+
+To use these prompts:
+1. Click the + icon next to the message input in Claude Desktop
+2. Select the desired template from the list
+3. Fill in the website URL when prompted
+4. Claude will execute the appropriate sitemap analysis
+
+### Examples
+
+#### Fetch a Complete Sitemap
 
 ```json
 {
@@ -204,9 +134,9 @@ Customize your server by setting these environment variables:
 }
 ```
 
-### Get Pages with Filtering
+#### Get Pages with Filtering and Pagination
 
-#### Filter by Route
+##### Filter by Route
 ```json
 {
   "name": "get_sitemap_pages",
@@ -219,7 +149,7 @@ Customize your server by setting these environment variables:
 }
 ```
 
-#### Filter by Specific Subsitemap
+##### Filter by Specific Subsitemap
 ```json
 {
   "name": "get_sitemap_pages",
@@ -232,21 +162,46 @@ Customize your server by setting these environment variables:
 }
 ```
 
-#### Combine Both Filters
+##### Cursor-Based Pagination
+
+The server implements MCP cursor-based pagination to handle large sitemaps efficiently:
+
+**Initial Request:**
+```json
+{
+  "name": "get_sitemap_pages",
+  "arguments": {
+    "url": "https://example.com",
+    "limit": 50
+  }
+}
+```
+
+**Response with Pagination:**
+```json
+{
+  "base_url": "https://example.com",
+  "pages": [...],  // First batch of pages
+  "limit": 50,
+  "nextCursor": "eyJwYWdlIjoxfQ=="
+}
+```
+
+**Subsequent Request with Cursor:**
 ```json
 {
   "name": "get_sitemap_pages",
   "arguments": {
     "url": "https://example.com",
     "limit": 50,
-    "include_metadata": true,
-    "route": "/blog/",
-    "sitemap_url": "https://example.com/blog-sitemap.xml"
+    "cursor": "eyJwYWdlIjoxfQ=="
   }
 }
 ```
 
-### Get Sitemap Statistics
+When there are no more results, the `nextCursor` field will be absent from the response.
+
+#### Get Sitemap Statistics
 
 ```json
 {
@@ -302,14 +257,14 @@ The response includes both total statistics and detailed stats for each subsitem
 
 This allows MCP clients to understand which subsitemaps might be of interest for further investigation. You can then use the `sitemap_url` parameter in `get_sitemap_pages` to filter pages from a specific subsitemap.
 
-### Parse Sitemap Content Directly
+#### Parse Sitemap Content Directly
 
 ```json
 {
   "name": "parse_sitemap_content",
   "arguments": {
     "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://example.com/</loc></url></urlset>",
-    "sitemap_url": "https://example.com/sitemap.xml"
+    "include_pages": true
   }
 }
 ```
@@ -318,3 +273,7 @@ This allows MCP clients to understand which subsitemaps might be of interest for
 
 - This MCP Server leverages the [ultimate-sitemap-parser](https://github.com/GateNLP/ultimate-sitemap-parser) library
 - Built using the [Model Context Protocol](https://modelcontextprotocol.io) Python SDK
+   
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

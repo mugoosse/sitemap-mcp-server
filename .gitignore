@@ -1,6 +1,25 @@
-.env
-venv
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.pyo
+*.pyd
+*.pyd.d
+
+# Build artifacts
+build/
+dist/
+wheels/
+*.egg-info
+pip-wheel-metadata/
+
+# Virtual environments
 .venv
-__pycache__
-sitemap_server.log
-sitemap_mcp_server.egg-info
+
+# Environment variables
+.env
+
+# Log files
+*.log
+
+# References
+refs/

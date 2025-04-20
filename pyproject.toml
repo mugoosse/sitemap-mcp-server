@@ -1,11 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "sitemap-mcp-server"
-version = "0.1.4"
-description = "MCP server for fetching, parsing and crawling sitemaps of a given website"
+version = "0.1.3"
+description = "Sitemap MCP is a Model Context Protocol (MCP) server for fetching, parsing, analyzing, and visualizing website sitemaps"
+authors = [
+    { name = "Maxime Goossens", email = "mcp@mgo.rodeo" }
+]
+license = "MIT"
+license-files = ["LICEN[CS]E.*"]
 readme = "README.md"
-requires-python = ">=3.13"
+keywords = ["sitemap", "mcp", "web-scraping", "website-analysis", "xml", "visualization", "model-context-protocol", "parser"]
+requires-python = ">=3.11"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
 dependencies = [
     "mcp[cli]>=1.6.0",
     "pydantic>=2.11.3",
     "ultimate-sitemap-parser>=1.3.1",
 ]
+
+[project.urls]
+Repository = "https://github.com/mugoosse/sitemap-mcp-server.git"
+
+[project.scripts]
+sitemap-mcp-server = "sitemap_mcp_server:main"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+python_files = "test_*.py"
+python_functions = "test_*"
+testpaths = ["tests"]
+addopts = "-v"
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.3.1",
+    "pytest-asyncio>=0.21.0",
+]
+
+dev = [
+    "black>=25.1.0",
+    "build>=1.2.2.post1",
+    "twine>=6.1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sitemap_mcp_server"]
+
+[tool.black]
+line-length = 88
+target-version = ["py311"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
