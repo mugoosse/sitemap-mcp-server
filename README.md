@@ -6,12 +6,21 @@ The Sitemap MCP Server provides AI agents and MCP clients with powerful tools fo
 ![PyPI](https://img.shields.io/pypi/v/sitemap-mcp-server)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
+[![smithery badge](https://smithery.ai/badge/@mugoosse/sitemap)](https://smithery.ai/server/@mugoosse/sitemap)
 
 <img width="1541" alt="image" src="https://github.com/user-attachments/assets/f234b35f-ccb2-44c6-8ce5-71a6d2531e43" />
 
 ## Installation
 
 Make sure [uv](https://docs.astral.sh/uv/getting-started/installation/) is installed.
+
+### Installing via Smithery
+
+To install sitemap for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@mugoosse/sitemap):
+
+```bash
+npx -y @smithery/cli install @mugoosse/sitemap --client claude
+```
 
 ### Claude Desktop & Cursor
 
