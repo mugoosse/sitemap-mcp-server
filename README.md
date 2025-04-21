@@ -1,13 +1,13 @@
 # Sitemap MCP Server
 
-<p>Model Context Protocol (MCP) Server for sitemap analysis and visualization</p>
+The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
 
 ![License](https://img.shields.io/github/license/mugoosse/sitemap-mcp-server)
 ![PyPI](https://img.shields.io/pypi/v/sitemap-mcp-server)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
 
-The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
+<img width="1541" alt="image" src="https://github.com/user-attachments/assets/f234b35f-ccb2-44c6-8ce5-71a6d2531e43" />
 
 ## Installation
 
