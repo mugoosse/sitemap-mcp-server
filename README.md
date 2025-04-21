@@ -2,6 +2,10 @@
 
 The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
 
+<a href="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server/badge" alt="Sitemap Server MCP server" />
+</a>
+
 ![License](https://img.shields.io/github/license/mugoosse/sitemap-mcp-server)
 ![PyPI](https://img.shields.io/pypi/v/sitemap-mcp-server)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue)
