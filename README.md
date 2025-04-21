@@ -12,21 +12,39 @@ The Sitemap MCP Server provides AI agents and MCP clients with powerful tools fo
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server/badge" />
 </a>
 
-## Demo in Cursor and Claude
+## Demo
 
 Get answers to questions about any website leveraging the power of sitemaps.
 
-For example, `how many pages does a modelcontextprotocol.io have?`
+<details><summary>Cursor: how many pages does a modelcontextprotocol.io have?</summary>
+
+<br/>
 
 <img width="1541" alt="image" src="https://github.com/user-attachments/assets/f234b35f-ccb2-44c6-8ce5-71a6d2531e43" />
 
-Or use the prompt templates in Claude Desktop to visualize the sitemap in a diagram for a given website:
+</details>
+
+<details><summary>Claude + prompt: visualize the sitemap in a diagram of windsurf.com</summary>
+
+<br/>
+
+Click on the "attach" button next to the tools button:
+
+![image](https://github.com/user-attachments/assets/e5b558c7-85fa-4b8f-b108-6d66d3b20719)
+
+Then select `visualize_sitemap`:
 
 <img width="558" alt="image" src="https://github.com/user-attachments/assets/2106e720-52c3-48a3-aa64-fd9c0a6ab075" />
 
-After filling in windsurf.com we get:
+Now we enter windsurf.com:
+
+![image](https://github.com/user-attachments/assets/ceddad25-3549-4a2f-a053-f54c1154912b)
+
+And we get a visualization of teh sitemap:
 
 <img width="1470" alt="image" src="https://github.com/user-attachments/assets/04464315-e619-4df5-8082-a981e6437da9" />
+
+</details>
 
 
 ## Installation
