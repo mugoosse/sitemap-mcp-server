@@ -1,28 +1,39 @@
 # Sitemap MCP Server
 
-The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
-
 ![License](https://img.shields.io/github/license/mugoosse/sitemap-mcp-server)
 ![PyPI](https://img.shields.io/pypi/v/sitemap-mcp-server)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
 [![smithery badge](https://smithery.ai/badge/@mugoosse/sitemap)](https://smithery.ai/server/@mugoosse/sitemap)
 
+The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
+
+<a href="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server/badge" />
+</a>
+
+## Demo in Cursor and Claude
+
+Get answers to questions about any website leveraging the power of sitemaps.
+
+For example, `how many pages does a modelcontextprotocol.io have?`
+
 <img width="1541" alt="image" src="https://github.com/user-attachments/assets/f234b35f-ccb2-44c6-8ce5-71a6d2531e43" />
+
+Or use the prompt templates in Claude Desktop to visualize the sitemap in a diagram for a given website:
+
+<img width="558" alt="image" src="https://github.com/user-attachments/assets/2106e720-52c3-48a3-aa64-fd9c0a6ab075" />
+
+After filling in windsurf.com we get:
+
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/04464315-e619-4df5-8082-a981e6437da9" />
+
 
 ## Installation
 
 Make sure [uv](https://docs.astral.sh/uv/getting-started/installation/) is installed.
 
-### Installing via Smithery
-
-To install sitemap for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@mugoosse/sitemap):
-
-```bash
-npx -y @smithery/cli install @mugoosse/sitemap --client claude
-```
-
-### Claude Desktop & Cursor
+### Installing in Claude Desktop, Cursor or Windsurf
 
 Add this entry to your [claude_desktop_config.json](https://modelcontextprotocol.io/quickstart/user#2-add-the-filesystem-mcp-server), Cursor settings, etc.:
 
@@ -39,6 +50,14 @@ Add this entry to your [claude_desktop_config.json](https://modelcontextprotocol
 ```
 
 Restart Claude if it's running. For Cursor simply press refresh and/or enable the MCP Server in the settings.
+
+### Installing via Smithery
+
+To install sitemap for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@mugoosse/sitemap):
+
+```bash
+npx -y @smithery/cli install @mugoosse/sitemap --client claude
+```
 
 ### MCP Inspector
 
