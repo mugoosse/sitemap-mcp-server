@@ -1,12 +1,14 @@
 # Sitemap MCP Server
 
+Discover website architecture and analyze site structure by fetching, parsing, and visualizing sitemaps from any URL. Uncover hidden pages and extract organized hierarchies without manual exploration.
+
+Includes ready-to-use prompt templates for Claude Desktop that let you analyze websites, check sitemap health, extract URLs, find missing content, and create visualizations with just a URL input.
+
 ![License](https://img.shields.io/github/license/mugoosse/sitemap-mcp-server)
 ![PyPI](https://img.shields.io/pypi/v/sitemap-mcp-server)
 ![Python Version](https://img.shields.io/badge/python-3.11+-blue)
 ![Status](https://img.shields.io/badge/status-active-brightgreen.svg)
 [![smithery badge](https://smithery.ai/badge/@mugoosse/sitemap)](https://smithery.ai/server/@mugoosse/sitemap)
-
-The Sitemap MCP Server provides AI agents and MCP clients with powerful tools for fetching, parsing, analyzing, and visualizing website sitemaps. It handles all standard sitemap formats including XML, Google News, and plain text sitemaps.
 
 <a href="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@mugoosse/sitemap-mcp-server/badge" />
@@ -45,7 +47,6 @@ And we get a visualization of teh sitemap:
 <img width="1470" alt="image" src="https://github.com/user-attachments/assets/04464315-e619-4df5-8082-a981e6437da9" />
 
 </details>
-
 
 ## Installation
 
@@ -108,11 +109,13 @@ Open the MCP Inspector at http://127.0.0.1:6274, select `sse` transport, and con
 If you want to use the SSE transport, follow these steps:
 
 1. Start the server:
+
 ```bash
 uvx sitemap-mcp-server
 ```
 
 2. Configure your MCP Client, e.g. Cursor:
+
 ```json
 {
   "mcpServers": {
@@ -134,33 +137,37 @@ For instructions on building and running the project from source, please refer t
 
 The following tools are available via the MCP server:
 
-* **get_sitemap_tree** - Fetch and parse the sitemap tree from a website URL
-  * Arguments: `url` (website URL), `include_pages` (optional, boolean)
-  * Returns: JSON representation of the sitemap tree structure
+- **get_sitemap_tree** - Fetch and parse the sitemap tree from a website URL
 
-* **get_sitemap_pages** - Get all pages from a website's sitemap with filtering options
-  * Arguments: `url` (website URL), `limit` (optional), `include_metadata` (optional), `route` (optional), `sitemap_url` (optional), `cursor` (optional)
-  * Returns: JSON list of pages with pagination metadata
+  - Arguments: `url` (website URL), `include_pages` (optional, boolean)
+  - Returns: JSON representation of the sitemap tree structure
 
-* **get_sitemap_stats** - Get statistics about a website's sitemap
-  * Arguments: `url` (website URL)
-  * Returns: JSON object with sitemap statistics including page counts, modification dates, and subsitemap details
+- **get_sitemap_pages** - Get all pages from a website's sitemap with filtering options
 
-* **parse_sitemap_content** - Parse a sitemap directly from its XML or text content
-  * Arguments: `content` (sitemap XML content), `include_pages` (optional, boolean)
-  * Returns: JSON representation of the parsed sitemap
+  - Arguments: `url` (website URL), `limit` (optional), `include_metadata` (optional), `route` (optional), `sitemap_url` (optional), `cursor` (optional)
+  - Returns: JSON list of pages with pagination metadata
+
+- **get_sitemap_stats** - Get statistics about a website's sitemap
+
+  - Arguments: `url` (website URL)
+  - Returns: JSON object with sitemap statistics including page counts, modification dates, and subsitemap details
+
+- **parse_sitemap_content** - Parse a sitemap directly from its XML or text content
+  - Arguments: `content` (sitemap XML content), `include_pages` (optional, boolean)
+  - Returns: JSON representation of the parsed sitemap
 
 ### Prompts
 
 The server includes ready-to-use prompts that appear as templates in Claude Desktop. After installing the server, you'll see these templates in the "Templates" menu (click the + icon next to the message input):
 
-* **Analyze Sitemap**: Provides comprehensive structure analysis of a website's sitemap
-* **Check Sitemap Health**: Evaluates SEO and health metrics of a sitemap
-* **Extract URLs from Sitemap**: Extracts and filters specific URLs from a sitemap
-* **Find Missing Content in Sitemap**: Identifies content gaps in a website's sitemap
-* **Visualize Sitemap Structure**: Creates a Mermaid.js diagram visualization of sitemap structure
+- **Analyze Sitemap**: Provides comprehensive structure analysis of a website's sitemap
+- **Check Sitemap Health**: Evaluates SEO and health metrics of a sitemap
+- **Extract URLs from Sitemap**: Extracts and filters specific URLs from a sitemap
+- **Find Missing Content in Sitemap**: Identifies content gaps in a website's sitemap
+- **Visualize Sitemap Structure**: Creates a Mermaid.js diagram visualization of sitemap structure
 
 To use these prompts:
+
 1. Click the + icon next to the message input in Claude Desktop
 2. Select the desired template from the list
 3. Fill in the website URL when prompted
@@ -183,6 +190,7 @@ To use these prompts:
 #### Get Pages with Filtering and Pagination
 
 ##### Filter by Route
+
 ```json
 {
   "name": "get_sitemap_pages",
@@ -196,6 +204,7 @@ To use these prompts:
 ```
 
 ##### Filter by Specific Subsitemap
+
 ```json
 {
   "name": "get_sitemap_pages",
@@ -213,6 +222,7 @@ To use these prompts:
 The server implements MCP cursor-based pagination to handle large sitemaps efficiently:
 
 **Initial Request:**
+
 ```json
 {
   "name": "get_sitemap_pages",
@@ -224,6 +234,7 @@ The server implements MCP cursor-based pagination to handle large sitemaps effic
 ```
 
 **Response with Pagination:**
+
 ```json
 {
   "base_url": "https://example.com",
@@ -234,6 +245,7 @@ The server implements MCP cursor-based pagination to handle large sitemaps effic
 ```
 
 **Subsequent Request with Cursor:**
+
 ```json
 {
   "name": "get_sitemap_pages",
@@ -319,7 +331,7 @@ This allows MCP clients to understand which subsitemaps might be of interest for
 
 - This MCP Server leverages the [ultimate-sitemap-parser](https://github.com/GateNLP/ultimate-sitemap-parser) library
 - Built using the [Model Context Protocol](https://modelcontextprotocol.io) Python SDK
-   
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
